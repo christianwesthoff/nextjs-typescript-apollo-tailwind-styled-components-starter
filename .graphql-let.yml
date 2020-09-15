@@ -9,5 +9,3 @@ plugins:
   - typescript-react-apollo
 respectGitIgnore: true
 cacheDir: __generated__
-require:
-  - dotenv/config

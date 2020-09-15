@@ -1,13 +1,14 @@
 import Link from 'next/link'
+import DivStyled from '../components/DivStyled'
 
 export default function About() {
   return (
-    <div>
+    <DivStyled>
       Welcome to the about page. Go to the{' '}
       <Link href="/">
         <a>Home</a>
       </Link>{' '}
       page.
-    </div>
+    </DivStyled>
   )
 }
