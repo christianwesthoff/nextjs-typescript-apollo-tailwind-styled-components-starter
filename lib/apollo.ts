@@ -8,7 +8,7 @@ import 'cross-fetch/polyfill'
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 
-function createIsomorphLink() {
+const createIsomorphLink = () => {
   const { HttpLink } = require('@apollo/client')
   return new HttpLink({
     uri: process.env.HASURA_GRAPHQL_ENDPOINT,
@@ -18,7 +18,7 @@ function createIsomorphLink() {
   })
 }
 
-function createApolloClient() {
+const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: createIsomorphLink(),
@@ -26,9 +26,9 @@ function createApolloClient() {
   })
 }
 
-export function initializeApollo(
+export const initializeApollo = (
   initialState: any = null
-) {
+) => {
   const _apolloClient = apolloClient ?? createApolloClient()
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
@@ -44,7 +44,7 @@ export function initializeApollo(
   return _apolloClient
 }
 
-export function useApollo(initialState: any) {
+export const useApollo = (initialState: any) => {
   const store = useMemo(() => initializeApollo(initialState), [initialState])
   return store
 }
