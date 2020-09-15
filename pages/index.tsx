@@ -1,26 +1,27 @@
 import Link from 'next/link'
-import { useViewerQuery, ViewerDocument } from '../lib/viewer.graphql'
+import { useGetUsersQuery, GetUsersDocument } from '../lib/user.graphql'
 import { initializeApollo } from '../lib/apollo'
 
 const Index = () => {
-  const { viewer } = useViewerQuery().data!
+  const { user } = useGetUsersQuery().data!
 
   return (
+    user?.length ? 
     <div>
-      You're signed in as {viewer.name} and you're {viewer.status} go to the{' '}
+      You're signed in as {user[0].name} and you're {user[0].status} go to the{' '}
       <Link href="/about">
         <a>about</a>
       </Link>{' '}
       page.
-    </div>
+    </div> : <div>Not signed in</div>
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps = async () => {
   const apolloClient = initializeApollo()
 
   await apolloClient.query({
-    query: ViewerDocument,
+    query: GetUsersDocument,
   })
 
   return {

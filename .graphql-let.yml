@@ -1,8 +1,13 @@
-schema: '**/*.graphqls'
-schemaEntrypoint: 'lib/type-defs.graphqls'
+schema:
+  - ${HASURA_GRAPHQL_ENDPOINT}:
+        headers:
+          'x-hasura-admin-secret': ${HASURA_ADMIN_SECRET}
 documents: '**/*.graphql'
 plugins:
   - typescript
   - typescript-operations
   - typescript-react-apollo
+respectGitIgnore: true
 cacheDir: __generated__
+require:
+  - dotenv/config
