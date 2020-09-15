@@ -11,7 +11,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 const createIsomorphLink = () => {
   const { HttpLink } = require('@apollo/client')
   return new HttpLink({
-    uri: process.env.HASURA_GRAPHQL_ENDPOINT,
+    uri: `${process.env.HASURA_GRAPHQL_ENDPOINT}/graphql`,
     headers: {
       'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET
     }
