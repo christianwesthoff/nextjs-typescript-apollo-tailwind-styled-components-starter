@@ -14,9 +14,9 @@ type IndexProps = {
   slug: string
 }
 
-const Index: React.FC<IndexProps> = (props) => {
+const Index: React.FC<IndexProps> = () => {
   const { query } = useRouter()
-  const slug = props.slug || query.slug
+  const { slug } = query
   const { data, loading, error } = useGetPagesQuery()
   const pages = data?.pages
   const thisPage = pages?.find((page) => page!.slug === slug)
