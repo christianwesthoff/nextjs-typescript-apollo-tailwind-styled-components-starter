@@ -11,10 +11,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 const createIsomorphLink = () => {
   const { HttpLink } = require('@apollo/client')
   return new HttpLink({
-    uri: `${process.env.HASURA_GRAPHQL_ENDPOINT}/graphql`,
-    headers: {
-      'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET
-    }
+    uri: `${process.env.NEXT_APP_STRAPI_URL}/graphql`, // Server URL (must be absolute)
   })
 }
 
@@ -26,9 +23,7 @@ const createApolloClient = () => {
   })
 }
 
-export const initializeApollo = (
-  initialState: any = null
-) => {
+export const getApollo = (initialState: any = null) => {
   const _apolloClient = apolloClient ?? createApolloClient()
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
@@ -45,6 +40,6 @@ export const initializeApollo = (
 }
 
 export const useApollo = (initialState: any) => {
-  const store = useMemo(() => initializeApollo(initialState), [initialState])
+  const store = useMemo(() => getApollo(initialState), [initialState])
   return store
 }

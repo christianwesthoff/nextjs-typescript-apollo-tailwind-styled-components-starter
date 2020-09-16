@@ -1,28 +1,36 @@
-import Link from 'next/link'
-import { useGetUsersQuery, GetUsersDocument } from '../lib/user.graphql'
-import { initializeApollo } from '../lib/apollo'
+import { useGetPagesQuery, GetPagesDocument } from '../lib/pages.graphql'
+import { getApollo } from '../lib/apollo'
 import DivStyled from '../components/DivStyled'
 
 const Index = () => {
-  const { user } = useGetUsersQuery().data!
+  const { pages } = useGetPagesQuery().data!
 
-  return (
-    user?.length ? 
+  const entries = pages!.map((page) => ({
+    slug: page!.slug,
+    title: page!.title,
+    id: page!.id,
+  }))
+
+  return entries?.length ? (
     <DivStyled>
-      You're signed in as {user[0].name} and you're {user[0].status} go to the{' '}
-      <Link href="/about">
-        <a>about</a>
-      </Link>{' '}
-      page.
-    </DivStyled> : <DivStyled>Not signed in</DivStyled>
+      <ul>
+        {entries.map((entry) => (
+          <li key={entry!.id}>
+            <a href={`/${entry.slug}`}>{entry.title}</a>
+          </li>
+        ))}
+      </ul>
+    </DivStyled>
+  ) : (
+    <DivStyled>Empty</DivStyled>
   )
 }
 
 export const getStaticProps = async () => {
-  const apolloClient = initializeApollo()
+  const apolloClient = getApollo()
 
   await apolloClient.query({
-    query: GetUsersDocument,
+    query: GetPagesDocument,
   })
 
   return {

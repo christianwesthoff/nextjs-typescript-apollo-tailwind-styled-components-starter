@@ -20,4 +20,7 @@ module.exports = {
 
     return config
   },
+  env: Object.fromEntries(
+    Object.entries(process.env).filter(([key]) => key.startsWith('NEXT_APP'))
+  ),
 }
