@@ -1,5 +1,5 @@
-import { useGetPagesQuery, GetPagesDocument } from '../lib/pages.graphql'
-import { getApollo } from '../lib/apollo'
+import { useGetPagesQuery, GetPagesDocument } from '../graphql/pages.graphql'
+import { getApollo } from '../graphql/apollo'
 import DivStyled from '../components/DivStyled'
 
 const Index = () => {
