@@ -37,8 +37,7 @@ const Index: React.FC<IndexProps> = () => {
 export const getStaticPaths = getStaticPathsFactory(
   GetPagesDocument,
   'pages',
-  'slug',
-  'name'
+  'slug'
 )
 
 export const getStaticProps = getStaticPropsFactory(GetPagesDocument)
